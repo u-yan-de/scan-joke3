@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>System Scan</title>
+
+<style>
+body{
+background:black;
+color:#00ff00;
+font-family:monospace;
+padding:30px;
+font-size:20px;
+line-height:1.6;
+}
+
+#cursor{
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+0%{opacity:1}
+50%{opacity:0}
+100%{opacity:1}
+}
+</style>
+
+</head>
+
+<body>
+
+<div id="text"></div>
+<span id="cursor">█</span>
+
+<script>
+
+navigator.vibrate?.(200);
+
+async function getIP(){
+
+try{
+let res = await fetch("https://api.ipify.org?format=json");
+let data = await res.json();
+return data.ip;
+}catch{
+return "取得中...";
+}
+
+}
+
+async function start(){
+
+let ip = await getIP();
+
+const lines = [
+"スキャンありがとうございます。🙈",
+"",
+"現在あなたのデバイスを解析中...🙈",
+"",
+"✔ IPアドレス取得: 🙈" + ip,
+"✔ 位置情報取得中...🙈",
+"✔ カメラアクセス...🙈",
+"",
+"システム侵入率 32%🙈",
+"システム侵入率 64%🙈",
+"システム侵入率 97%🙈",
+"",
+"アクセス完了🙈",
+"",
+"※このページはジョークです。🙈",
+"驚きました？ 😄",
+"驚いたはコメント欄に「だまされたずらぁ」と書き込んでくださいね"
+];
+
+let i = 0;
+
+function show(){
+if(i < lines.length){
+document.getElementById("text").innerHTML += lines[i] + "<br>";
+i++;
+setTimeout(show,800);
+}
+}
+
+show();
+
+}
+
+start();
+
+</script>
+
+</body>
+</html>
